@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'development'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('OPENSHIFT_BUILD_NAME') ? ( 'http://'.preg_replace('/^(.*)-[\d]+$/','${1}',env('OPENSHIFT_BUILD_NAME', 'laravel-mysql-example-1')).'-'.env('OPENSHIFT_BUILD_NAMESPACE').'.'.env('ROUTER_SHARD', '44fs').'.'.env('CLUSTER_NAME', 'preview').'.openshiftapps.com' ) : env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -107,6 +107,21 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the log settings for your application. Out of
+    | the box, Laravel uses the Monolog PHP logging library. This gives
+    | you a variety of powerful log handlers / formatters to utilize.
+    |
+    | Available Settings: "single", "daily", "syslog", "errorlog"
+    |
+    */
+
+    'log' => env('APP_LOG', 'single'),
 
     /*
     |--------------------------------------------------------------------------
